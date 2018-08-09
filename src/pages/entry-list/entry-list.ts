@@ -23,12 +23,10 @@ export class EntryListPage {
       new SleepEntryModel("forever and a day"),
       new SleepEntryModel("yesterday :D")
     ];
-    console.log(this.sleepentries);
   }
 
   openEntry(index: number) {
-    console.log(this.sleepentries[index].date);
-    // this.navCtrl.push(this.sleepentries[index]); //{name: this.inputval}
+    this.navCtrl.push(SleepEntryPage, { entry: this.sleepentries[index] });
   }
   ionViewDidLoad() {
     console.log("ionViewDidLoad EntryListPage");

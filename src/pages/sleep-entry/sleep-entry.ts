@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { SleepEntryModel } from "../../models/sleep-entry-model";
 
 /**
  * Generated class for the SleepEntryPage page.
@@ -14,9 +15,9 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
   templateUrl: "sleep-entry.html"
 })
 export class SleepEntryPage {
-  date: string;
+  entry: SleepEntryModel = undefined;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.date = "brother";
+    this.entry = navParams.get("entry");
   }
 
   ionViewDidLoad() {

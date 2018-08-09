@@ -36,7 +36,8 @@ import { EntryListPage } from "../pages/entry-list/entry-list";
     HomePage,
     TabsPage,
     CalendarPage,
-    EntryListPage
+    EntryListPage,
+    SleepEntryPage
   ],
   providers: [
     StatusBar,
