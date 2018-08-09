@@ -18,7 +18,7 @@
     <ion-list>
       <button ion-item block color="dark" *ngFor="let entry of sleepentries; let i = index" (click)="openEntry(i)">
         <ion-icon name="alarm"></ion-icon>
-        {{ entry }}
+        {{ entry.date }}
       </button>
       <!-- <button ion-item block color="dark">
         <ion-icon name="alarm"></ion-icon>
