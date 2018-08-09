@@ -15,9 +15,23 @@ import { SleepEntryPage } from "../sleep-entry/sleep-entry";
   templateUrl: "entry-list.html"
 })
 export class EntryListPage {
-  sleepEntries: Array<SleepEntryPage>;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  public sleepentries: Array<string> = [
+    "what",
+    "am",
+    "I",
+    "even",
+    "doing",
+    "anymore"
+  ];
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.sleepentries = ["what", "am", "I", "even", "doing", "anymore"];
+    console.log(this.sleepentries);
+  }
 
+  openEntry(index: number) {
+    console.log(this.sleepentries[index]);
+    // this.navCtrl.push(this.sleepentries[index]); //{name: this.inputval}
+  }
   ionViewDidLoad() {
     console.log("ionViewDidLoad EntryListPage");
   }

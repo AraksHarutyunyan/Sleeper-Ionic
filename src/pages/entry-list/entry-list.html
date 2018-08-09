@@ -16,7 +16,11 @@
 <ion-content padding>
   <ion-grid fixed>
     <ion-list>
-      <button ion-item block color="dark">
+      <button ion-item block color="dark" *ngFor="let entry of sleepentries; let i = index" (click)="openEntry(i)">
+        <ion-icon name="alarm"></ion-icon>
+        {{ entry }}
+      </button>
+      <!-- <button ion-item block color="dark">
         <ion-icon name="alarm"></ion-icon>
         Holy
       </button>
@@ -35,7 +39,7 @@
       <button ion-item block color="dark">
           <ion-icon name="alarm"></ion-icon>
           List!
-      </button>
+      </button> -->
     </ion-list>
   </ion-grid>
 </ion-content>

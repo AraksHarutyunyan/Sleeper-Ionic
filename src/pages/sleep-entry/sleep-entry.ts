@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 
 /**
  * Generated class for the SleepEntryPage page.
@@ -10,16 +10,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-sleep-entry',
-  templateUrl: 'sleep-entry.html',
+  selector: "page-sleep-entry",
+  templateUrl: "sleep-entry.html"
 })
 export class SleepEntryPage {
-
+  date: string;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.date = "brother";
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SleepEntryPage');
+    console.log("ionViewDidLoad SleepEntryPage");
   }
-
 }
