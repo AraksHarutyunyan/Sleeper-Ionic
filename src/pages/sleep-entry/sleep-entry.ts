@@ -16,6 +16,7 @@ import { SleepEntryModel } from "../../models/sleep-entry-model";
 })
 export class SleepEntryPage {
   entry: SleepEntryModel = undefined;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.entry = navParams.get("entry");
   }

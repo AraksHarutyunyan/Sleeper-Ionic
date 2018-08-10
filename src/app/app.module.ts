@@ -12,9 +12,14 @@ import { TabsPage } from "../pages/tabs/tabs";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { Calendar } from "@ionic-native/calendar";
+
+import { ChartsModule } from "ng2-charts";
+import { CalendarModule } from "ionic3-calendar-en";
+
 import { SleepEntryPage } from "../pages/sleep-entry/sleep-entry";
 import { CalendarPage } from "../pages/calendar/calendar";
 import { EntryListPage } from "../pages/entry-list/entry-list";
+import { StatisticsPage } from "../pages/statistics/statistics";
 
 @NgModule({
   declarations: [
@@ -23,11 +28,18 @@ import { EntryListPage } from "../pages/entry-list/entry-list";
     ContactPage,
     HomePage,
     TabsPage,
-    SleepEntryPage,
     CalendarPage,
-    EntryListPage
+    EntryListPage,
+    SleepEntryPage,
+    StatisticsPage
   ],
-  imports: [BrowserModule, IonicModule.forRoot(MyApp), FormsModule],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(MyApp),
+    FormsModule,
+    ChartsModule,
+    CalendarModule
+  ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
@@ -37,7 +49,8 @@ import { EntryListPage } from "../pages/entry-list/entry-list";
     TabsPage,
     CalendarPage,
     EntryListPage,
-    SleepEntryPage
+    SleepEntryPage,
+    StatisticsPage
   ],
   providers: [
     StatusBar,

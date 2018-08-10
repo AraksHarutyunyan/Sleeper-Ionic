@@ -21,8 +21,13 @@ export class EntryListPage {
     this.sleepentries = [
       new SleepEntryModel("42/42/42"),
       new SleepEntryModel("forever and a day"),
-      new SleepEntryModel("yesterday :D")
+      new SleepEntryModel("yesterday :D"),
+      new SleepEntryModel("😂😂🤣👌🙌😆🐱‍👓🐱‍🐉😆"),
+      new SleepEntryModel(
+        "main(int c,char**v){return!m(v[1],v[2]);}m(char*s,char*t){return*t-42?*s?63==*t|*s==*t&&m(s+1,t+1):!*t:m(s,t+1)||*s&&m(s+1,t);}"
+      )
     ];
+    console.log(this.sleepentries);
   }
 
   openEntry(index: number) {

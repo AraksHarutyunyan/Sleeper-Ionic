@@ -15,21 +15,33 @@ import { Calendar } from "@ionic-native/calendar";
   templateUrl: "calendar.html"
 })
 export class CalendarPage {
+  entriesLogged: any = [];
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private calendar: Calendar
   ) {
-    // this.calendar.createCalendar("CalendarView").then(
-    //   msg => {
-    //     console.log(msg);
-    //   },
-    //   err => {
-    //     console.log(err);
-    //   }
-    // );
+    this.entriesLogged = [
+      {
+        year: 2018,
+        month: 7,
+        date: 24
+      },
+      {
+        year: 2018,
+        month: 7,
+        date: 3
+      }
+    ];
   }
 
+  onDaySelect(event: any) {
+    console.log(event);
+  }
+
+  onMonthSelect(event: any) {
+    console.log(event);
+  }
   openCalendar() {
     console.log(typeof this.calendar === "undefined");
     // this.calendar.openCalendar(new Date()).then(

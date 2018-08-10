@@ -1,3 +1,19 @@
 page-calendar {
+}
+// .row {
+//   background-color: cornflowerblue;
+// }
 
+// Day-select
+ion-calendar .calendar-row .select {
+  background: #fcaeff;
+  transition: transform 2s;
+}
+ion-calendar .calendar-row .select:hover {
+  transform: rotate(1800deg);
+  transition-timing-function: ease-in-out;
+}
+
+.row[justify-content-center] {
+  background: repeating-radial-gradient(cornflowerblue, yellow 10%, green 15%);
 }
