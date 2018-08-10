@@ -1,8 +1,5 @@
 page-calendar {
 }
-// .row {
-//   background-color: cornflowerblue;
-// }
 
 // Day-select
 ion-calendar .calendar-row .select {
@@ -15,5 +12,5 @@ ion-calendar .calendar-row .select:hover {
 }
 
 .row[justify-content-center] {
-  background: repeating-radial-gradient(cornflowerblue, yellow 10%, green 15%);
+  background: linear-gradient(to bottom right, cornflowerblue, aqua);
 }

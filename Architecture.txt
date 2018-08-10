@@ -1,0 +1,14 @@
+Architecture:
+
+
+
+|-List (or should it be calendar) <FIRST PAGE>
+|	>>displaying EntryModel.date
+|-Stats
+|	
+|-Calendar
+	>>displaying dates where EntryModelsare linked to
+
+
+EntryCollection
+	>>allEntries: Map<Date, SleepEntryModel>

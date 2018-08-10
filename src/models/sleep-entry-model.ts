@@ -1,13 +1,17 @@
 export class SleepEntryModel {
-  public date: string = "";
+  public date: Date = new Date();
 
   public sleepTime: string = ""; //TODO: make private and getters
   public wakeTime: string = "";
 
-  constructor(date: string) {
+  constructor(date: Date) {
     this.date = date;
   }
 
+  getDateString() {
+    // return this.date.toLocaleDateString();
+    return this.date.toDateString();
+  }
   addSleepTime(sleepTime: string) {
     this.sleepTime = sleepTime;
   }

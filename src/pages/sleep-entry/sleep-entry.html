@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>SleepEntry</ion-title>
+    <ion-title>{{ entry.getDateString() }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,17 +15,13 @@
 
 <ion-content padding>
   <ion-card>
-    <ion-card-header>
-      {{ entry.date }}
-    </ion-card-header>
-
     <ion-card-content>
       <ion-row no-padding>
-        <ion-col col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3>
-          {{ entry.sleepTime }}
+        <ion-col>
+          Sleep: {{ entry.sleepTime }}
         </ion-col>
         <ion-col>
-          {{ entry.wakeTime }}
+          Wake: {{ entry.wakeTime }}
         </ion-col>
       </ion-row>
     </ion-card-content>

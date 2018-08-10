@@ -6,11 +6,12 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar primary>
     <ion-title>Entries</ion-title>
-    <button ion-button round outline>Create New Entry</button>
+    <ion-buttons end>
+      <button ion-button right round outline (click)="createNewEntry()">Create New Entry</button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
@@ -19,7 +20,7 @@
     <ion-list>
       <button ion-item block color="dark" *ngFor="let entry of sleepentries; let i = index" (click)="openEntry(i)">
         <ion-icon name="alarm"></ion-icon>
-        {{ entry.date }}
+        {{ entry.getDateString() }}
       </button>
     </ion-list>
   </ion-grid>

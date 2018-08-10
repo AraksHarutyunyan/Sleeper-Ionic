@@ -15,11 +15,15 @@ import { Calendar } from "@ionic-native/calendar";
 
 import { ChartsModule } from "ng2-charts";
 import { CalendarModule } from "ionic3-calendar-en";
+import { HttpModule, Http } from "@angular/http";
+import { HttpClientModule, HttpClient } from "@angular/common/http";
 
 import { SleepEntryPage } from "../pages/sleep-entry/sleep-entry";
 import { CalendarPage } from "../pages/calendar/calendar";
 import { EntryListPage } from "../pages/entry-list/entry-list";
 import { StatisticsPage } from "../pages/statistics/statistics";
+import { EntryCollectionProvider } from "../providers/entry-collection/entry-collection";
+import { CreateNewEntryPage } from "../pages/create-new-entry/create-new-entry";
 
 @NgModule({
   declarations: [
@@ -31,14 +35,17 @@ import { StatisticsPage } from "../pages/statistics/statistics";
     CalendarPage,
     EntryListPage,
     SleepEntryPage,
-    StatisticsPage
+    StatisticsPage,
+    CreateNewEntryPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     FormsModule,
     ChartsModule,
-    CalendarModule
+    CalendarModule,
+    HttpModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -50,13 +57,15 @@ import { StatisticsPage } from "../pages/statistics/statistics";
     CalendarPage,
     EntryListPage,
     SleepEntryPage,
-    StatisticsPage
+    StatisticsPage,
+    CreateNewEntryPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    Calendar
+    Calendar,
+    EntryCollectionProvider
   ]
 })
 export class AppModule {}

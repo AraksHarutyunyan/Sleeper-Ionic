@@ -2,6 +2,8 @@ import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { SleepEntryPage } from "../sleep-entry/sleep-entry";
 import { SleepEntryModel } from "../../models/sleep-entry-model";
+import { EntryCollectionProvider } from "../../providers/entry-collection/entry-collection";
+import { CreateNewEntryPage } from "../create-new-entry/create-new-entry";
 
 /**
  * Generated class for the EntryListPage page.
@@ -17,21 +19,30 @@ import { SleepEntryModel } from "../../models/sleep-entry-model";
 })
 export class EntryListPage {
   public sleepentries: Array<SleepEntryModel> = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public entryCollection: EntryCollectionProvider
+  ) {
     this.sleepentries = [
-      new SleepEntryModel("42/42/42"),
-      new SleepEntryModel("forever and a day"),
-      new SleepEntryModel("yesterday :D"),
-      new SleepEntryModel("😂😂🤣👌🙌😆🐱‍👓🐱‍🐉😆"),
-      new SleepEntryModel(
-        "main(int c,char**v){return!m(v[1],v[2]);}m(char*s,char*t){return*t-42?*s?63==*t|*s==*t&&m(s+1,t+1):!*t:m(s,t+1)||*s&&m(s+1,t);}"
-      )
+      new SleepEntryModel(new Date(2018, 7, 7)),
+      new SleepEntryModel(new Date(2018, 7, 8)),
+      new SleepEntryModel(new Date(2018, 7, 9)),
+      new SleepEntryModel(new Date(2018, 7, 10)),
+      new SleepEntryModel(new Date(2018, 7, 11))
     ];
-    console.log(this.sleepentries);
+    for (let entry of this.sleepentries) {
+      this.entryCollection.addEntry(entry);
+    }
+    this.sleepentries = Array.from(this.entryCollection.allEntries.values());
   }
 
   openEntry(index: number) {
     this.navCtrl.push(SleepEntryPage, { entry: this.sleepentries[index] });
+  }
+
+  createNewEntry() {
+    this.navCtrl.push(CreateNewEntryPage);
   }
   ionViewDidLoad() {
     console.log("ionViewDidLoad EntryListPage");
