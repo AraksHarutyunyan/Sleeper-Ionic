@@ -13,15 +13,26 @@
 </ion-header>
 
 
-<ion-content padding>
-  <div class="row">
-    <div class="col-md-6">
-      <div style="display: block;">
-        <canvas baseChart width="300" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-          [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)">
-        </canvas>
-      </div>
+<ion-content>
+  <ion-card class="graph-visual">
+    <!-- <div class="row">
+      <div class="col-md-6">
+        <div style="display: block;"> -->
+    <!-- <canvas baseChart width="300" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+            [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)">
+          </canvas> -->
+    <div id="wrapper" style="position: relative; height: 80vh; width: 85vw">
+      <canvas id="chart" #lineCanvas></canvas>
     </div>
-  </div>
+    <script>
+      this.lineChart.parentElement.innerHTML =
+        '<img style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;" src="' +
+        this.lineChart.toBase64Image() +
+        '" />';
+    </script>
+    <!-- </div>
+      </div>
+    </div> -->
+  </ion-card>
 </ion-content>

@@ -1,4 +1,4 @@
-TODO: 
+TODO:
 
     - SleepEntry page needs some setting up. Use ngIf to display wake/sleep time if existing.
 
@@ -17,12 +17,16 @@ TODO:
     - Create Login page
     - Create Account setup
 
-DOING: 
-- Setup sharing the same EntryCollection between pages? 
-- Create "Create New Entry" page. It makes an Entry model and stores it in EntryCollection
+DOING:
 
+- Create "Create New Entry" page. It makes an Entry model and stores it in EntryCollection. DO WE NEED THIS? See: Only make new entries when I missed complete days. Do I want to ask user to fill in days, or just encourage them to move on?
 
-DONE: - Created Stats page - Created Entry-List page - Created Calendar page - Created Sleep Entry page
+DONE:
+
+    - Created Stats page
+    - - Created Entry-List page
+    - - Created Calendar page
+    - - Created Sleep Entry page
 
     - Found Stats module
     - Found Calendar module
@@ -32,3 +36,5 @@ DONE: - Created Stats page - Created Entry-List page - Created Calendar page - C
 
     - Created navigation between List and SleepEntry
     - Create EntryCollection model that holds all entries and has organising methods (returns by month or year or specific day) - Add New Entry manual creation in List
+
+    - Setup sharing the same EntryCollection between pages?

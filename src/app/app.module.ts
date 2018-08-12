@@ -22,8 +22,9 @@ import { SleepEntryPage } from "../pages/sleep-entry/sleep-entry";
 import { CalendarPage } from "../pages/calendar/calendar";
 import { EntryListPage } from "../pages/entry-list/entry-list";
 import { StatisticsPage } from "../pages/statistics/statistics";
-import { EntryCollectionProvider } from "../providers/entry-collection/entry-collection";
 import { CreateNewEntryPage } from "../pages/create-new-entry/create-new-entry";
+
+import { EntryCollectionProvider } from "../providers/entry-collection/entry-collection";
 
 @NgModule({
   declarations: [

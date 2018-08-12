@@ -20,7 +20,7 @@ export class CreateNewEntryPage {
     public navParams: NavParams,
     public entryCollection: EntryCollectionProvider
   ) {
-    console.log(this.entryCollection);
+    
   }
 
   ionViewDidLoad() {

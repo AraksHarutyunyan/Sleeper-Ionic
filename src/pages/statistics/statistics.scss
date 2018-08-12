@@ -1,3 +1,20 @@
 page-statistics {
+}
 
+.scroll-content {
+  background-color: map-get($colors, light);
+}
+
+ion-card-header {
+  font-weight: bold;
+}
+
+ion-card {
+  .graph-visual.card {
+    overflow: visible;
+  }
+  div.graph-visual.chartjs-size-monitor {
+    height: 100vw;
+    // margin-left: -10px;
+  }
 }
