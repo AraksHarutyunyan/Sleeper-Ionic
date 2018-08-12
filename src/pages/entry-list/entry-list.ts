@@ -37,7 +37,10 @@ export class EntryListPage {
       new SleepEntryModel(new Date(2018, 8, 8)),
       new SleepEntryModel(new Date(2018, 8, 9)),
       new SleepEntryModel(new Date(2018, 11, 10)),
-      new SleepEntryModel(new Date(2018, 11, 11))
+      new SleepEntryModel(new Date(2018, 11, 11)),
+      new SleepEntryModel(new Date(2019, 1, 14)),
+      new SleepEntryModel(new Date(2019, 6, 6)),
+      new SleepEntryModel(new Date(2019, 7, 7))
     ];
     for (let entry of sample_entries) {
       this.entryCollection.addEntry(entry);
