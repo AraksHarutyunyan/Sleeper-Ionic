@@ -15,14 +15,27 @@ import { EntryCollectionProvider } from "../../providers/entry-collection/entry-
   templateUrl: "create-new-entry.html"
 })
 export class CreateNewEntryPage {
+  public today: string = "";
+  public myDate: any = "";
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public entryCollection: EntryCollectionProvider
   ) {
-    
+    this.updateMaxSelectDate();
   }
 
+  updateMaxSelectDate() {
+    let todayDate = new Date(),
+      month = "" + (todayDate.getMonth() + 1),
+      day = "" + todayDate.getDate(),
+      year = todayDate.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    this.today = [year, month, day].join("-");
+  }
   ionViewDidLoad() {
     console.log("ionViewDidLoad CreateNewEntryPage");
   }

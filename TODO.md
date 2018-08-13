@@ -1,5 +1,8 @@
 TODO:
 
+    - Get data by year from EntryCollection
+    - FIREBASE to store data
+
     - SleepEntry page needs some setting up. Use ngIf to display wake/sleep time if existing.
 
     - Organise entries by month or by year, if more than 12 months
@@ -15,7 +18,7 @@ TODO:
     - Make stats work
 
     - Create Login page
-    - Create Account setup
+    - Create Account setup (Settings)
 
 DOING:
 
@@ -38,3 +41,6 @@ DONE:
     - Create EntryCollection model that holds all entries and has organising methods (returns by month or year or specific day) - Add New Entry manual creation in List
 
     - Setup sharing the same EntryCollection between pages?
+
+    - Refactored methods for EntryCollection model. Now uses a rough pipeline to return structured data.
+    - EntryList now configures entries received and uses months as list-dividers

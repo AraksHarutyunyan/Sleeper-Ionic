@@ -4,6 +4,8 @@ Architecture:
 
 |-List (or should it be calendar) <FIRST PAGE>
 |	>>displaying EntryModel.date
+	>>displays a year's worth of entries at a time. Can switch between years. 
+	>> Entries are grouped by month
 |-Stats
 |	
 |-Calendar

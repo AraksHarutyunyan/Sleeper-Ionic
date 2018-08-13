@@ -1,0 +1,7 @@
+UX Decisions:
+
+- Display list by year
+- Both calendar and list views -- calendar is first
+- Different coloured event markers on calendar
+- Modal (should this be push notification if off app?) data entry requests to make recording painless
+- If push notification, should be quick enough to really not need to go into app except check progress and stats
