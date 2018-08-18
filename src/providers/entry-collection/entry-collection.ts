@@ -21,16 +21,17 @@ const MAX_RECENT_ENTRIES: number = 93;
 
 @Injectable()
 export class EntryCollectionProvider {
-  private allEntries: Map<Date, SleepEntryModel> = new Map();
+  //Map Date.getTime() (exact match) to Model
+  private allEntries: Map<Number, SleepEntryModel> = new Map();
+
+  private entriesByMonth: Map<Number, Array<SleepEntryModel>> = new Map();
+  private entriesByYear: Map<Number, Array<SleepEntryModel>> = new Map();
 
   //The most recent 90-93 entries, or 3months * 30or31 days worth of entries.
   private mostRecentEntries: Array<SleepEntryModel> = [];
 
-  private entriesByMonth: Map<number, Array<SleepEntryModel>> = new Map();
-  private entriesByYear: Map<number, Array<SleepEntryModel>> = new Map();
-
   addEntry(entry: SleepEntryModel) {
-    this.allEntries.set(entry.date, entry);
+    this.allEntries.set(entry.getDate(), entry);
     this.update(entry);
   }
 
@@ -40,15 +41,21 @@ export class EntryCollectionProvider {
       this.mostRecentEntries.shift();
     }
     this.mostRecentEntries.push(entry);
+
+    let date: Date = entry.getDate();
     // Populate map with month keys and add all relating entires for that month
-    let thisMonth: number = entry.date.getMonth();
+
+    let thisMonth: number = new Date(
+      date.getFullYear(),
+      date.getMonth()
+    ).getTime();
     if (this.entriesByMonth.has(thisMonth)) {
       this.entriesByMonth.get(thisMonth).push(entry);
     } else {
       this.entriesByMonth.set(thisMonth, []);
     }
     // Populate map with year keys and add all relating entires for that year
-    let thisYear: number = entry.date.getFullYear();
+    let thisYear: number = new Date(date.getFullYear()).getTime();
     if (this.entriesByYear.has(thisYear)) {
       this.entriesByYear.get(thisYear).push(entry);
     } else {
@@ -56,16 +63,20 @@ export class EntryCollectionProvider {
     }
   }
 
+  getEntry(year: number, month: number, date: number) {
+    return this.allEntries.get(new Date(year, month, date).getTime()) || {};
+  }
+
   getMostRecentEntries() {
     this.mostRecentEntries.sort(function(
       a: SleepEntryModel,
       b: SleepEntryModel
     ) {
-      return +b.date.getTime() - +a.date.getTime();
+      return +b.getDate().getTime() - +a.getDate().getTime();
     });
 
     this.mostRecentEntries.reduce(function(acc, item) {
-      let key = item.date.getMonth();
+      let key = item.getDate().getMonth();
       acc[key] = acc[key] || [];
       acc[key].push(item);
       return acc;
@@ -97,12 +108,12 @@ export class EntryCollectionProvider {
     return Array.from(this.entriesByMonth.keys());
   }
 
-  getEntriesByMonth(month: number) {
-    return this.entriesByMonth.get(month);
+  getEntriesByMonth(month: number, year: number) {
+    return this.entriesByMonth.get(new Date(year, month).getTime()) || [];
   }
 
   getEntriesByYear(year: number) {
-    return this.entriesByYear.get(year);
+    return this.entriesByYear.get(new Date(year).getTime()) || [];
   }
 
   renameKeys(obj, newKeys) {

@@ -17,12 +17,19 @@ import { EntryCollectionProvider } from "../../providers/entry-collection/entry-
 export class CreateNewEntryPage {
   public today: string = "";
   public myDate: any = "";
+
+  EntryDetails: any = "";
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public entryCollection: EntryCollectionProvider
   ) {
     this.updateMaxSelectDate();
+  }
+
+  printDate(date: any) {
+    console.log(this.EntryDetails);
   }
 
   updateMaxSelectDate() {

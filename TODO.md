@@ -1,7 +1,7 @@
 TODO:
 
     - Get data by year from EntryCollection
-    - FIREBASE to store data
+    - FIREBASE to store data (or sqlite?)
 
     - SleepEntry page needs some setting up. Use ngIf to display wake/sleep time if existing.
 

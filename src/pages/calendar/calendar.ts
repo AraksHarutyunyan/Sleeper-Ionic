@@ -2,6 +2,8 @@ import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 
 import { Calendar } from "@ionic-native/calendar";
+import { EntryCollectionProvider } from "../../providers/entry-collection/entry-collection";
+import { SleepEntryPage } from "../sleep-entry/sleep-entry";
 /**
  * Generated class for the CalendarPage page.
  *
@@ -15,46 +17,61 @@ import { Calendar } from "@ionic-native/calendar";
   templateUrl: "calendar.html"
 })
 export class CalendarPage {
-  entriesLogged: any = [];
+  entriesLogged: Array<Object> = [];
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private calendar: Calendar
+    private calendar: Calendar,
+    private entryCollection: EntryCollectionProvider
   ) {
-    this.entriesLogged = [
-      {
-        year: 2018,
-        month: 7,
-        date: 24
-      },
-      {
-        year: 2018,
-        month: 7,
-        date: 3
-      }
-    ];
+    for (let entry of this.entryCollection.getEntriesByMonth(
+      new Date().getMonth(),
+      new Date().getFullYear()
+    )) {
+      this.entriesLogged.push(entry.getDateObject());
+    }
   }
 
   onDaySelect(event: any) {
     console.log(event);
-  }
+  //Check if event}
 
   onMonthSelect(event: any) {
     console.log(event);
+    // Clear array
+    this.entriesLogged.length = 0;
+
+    let entriesByMonth = this.entryCollection.getEntriesByMonth(
+      event["month"],
+      event["year"]
+    );
+
+    for (let entry of entriesByMonth) {
+      this.entriesLogged.push(entry.getDateObject());
+    }
   }
   openCalendar() {
     console.log(typeof this.calendar === "undefined");
-    // this.calendar.openCalendar(new Date()).then(
-    //   msg => {
-    //     console.log(msg);
-    //   },
-    //   err => {
-    //     console.log(err);
-    //   }
-    // );
+  }
+
+  openEntry(dateObj: Object) {
+    this.navCtrl.push(SleepEntryPage, {
+      entry: this.entryCollection.getEntry(
+        dateObj["year"],
+        dateObj["month"],
+        dateObj["date"]
+      )
+    });
   }
 
   ionViewDidLoad() {
+    for (let entry of this.entryCollection.getEntriesByMonth(
+      new Date().getMonth(),
+      new Date().getFullYear()
+    )) {
+      this.entriesLogged.push(entry.getDateObject());
+    }
+
     console.log("ionViewDidLoad CalendarPage");
   }
 }

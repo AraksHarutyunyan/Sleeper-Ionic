@@ -14,5 +14,7 @@
 
 
 <ion-content padding>
-  <ion-datetime displayFormat="MMM DD, YYYY HH:mm" min="2018" [max]="today" [(ngModel)]="myDate"></ion-datetime>
+  <ion-label>Date and Sleep time</ion-label>
+  <ion-datetime displayFormat="MMM DD, YYYY HH:mm" min="2018" [max]="today" [(ngModel)]="EntryDetails" (click)="printDate(EntryDetails)"></ion-datetime>
+
 </ion-content>
