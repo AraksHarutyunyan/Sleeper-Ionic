@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { SleepEntryModel } from "../../models/sleep-entry-model";
 import { getLocaleMonthNames } from "../../../node_modules/@angular/common";
+import { Storage } from "@ionic/storage";
 
 var monthNames = [
   "January",
@@ -18,6 +19,7 @@ var monthNames = [
   "December"
 ];
 const MAX_RECENT_ENTRIES: number = 93;
+const STORAGE_KEY = "ALL_ENTRIES";
 
 @Injectable()
 export class EntryCollectionProvider {
@@ -124,7 +126,11 @@ export class EntryCollectionProvider {
     return Object.assign({}, ...keyValues);
   }
 
-  constructor(public http: HttpClient) {
+  getAllEntries() {
+    return this.storage.get(STORAGE_KEY);
+  }
+
+  constructor(public http: HttpClient, public storage: Storage) {
     console.log("Hello EntryCollectionProvider Provider");
   }
 }

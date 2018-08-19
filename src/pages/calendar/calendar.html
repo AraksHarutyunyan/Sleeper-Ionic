@@ -12,6 +12,15 @@
 
 <ion-content padding>
   <!-- <button ion-button round outline (click)="openCalendar()">Show Calendar</button> -->
-  <ion-calendar #calendar lang="es" [events]="entriesLogged" (onDaySelect)="onDaySelect($event)" (onMonthSelect)="onMonthSelect($event)"></ion-calendar>
+  <ion-calendar #calendar lang="kr" [events]="entriesLogged" (onDaySelect)="onDaySelect($event)" (onMonthSelect)="onMonthSelect($event)"></ion-calendar>
   <button ion-button (click)="calendar.today()">Jump to Today</button>
+  <div *ngFor="let entry of entriesLogged;let j = index">
+    <span *ngIf="entry.isComplete; then completeBlip else incompleteBlip"></span>
+    <ng-template #completeBlip>
+      <span class="eventBlip-complete"></span>
+    </ng-template>
+    <ng-template #incompleteBlip>
+      <span class="eventBlip-incomplete"></span>
+    </ng-template>
+  </div>
 </ion-content>

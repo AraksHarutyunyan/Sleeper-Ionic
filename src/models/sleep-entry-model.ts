@@ -5,12 +5,15 @@ export class SleepEntryModel {
     wakeTime: ""
   };
 
-  // public date: Date = new Date();
-  public sleepTime: string = ""; //TODO: make private and getters
-  public wakeTime: string = "";
+  private hasSleepTime: boolean = false;
+  private hasWakeTime: boolean = false;
 
   constructor(date: Date) {
     this.data["date"] = date;
+  }
+
+  isCompleteEntry() {
+    return this.hasSleepTime && this.hasWakeTime;
   }
 
   /* Return JS Date obj */
@@ -29,15 +32,26 @@ export class SleepEntryModel {
     return {
       year: dateObj.getFullYear(),
       month: dateObj.getMonth(),
-      date: dateObj.getDate()
+      date: dateObj.getDate(),
+      isComplete: this.isCompleteEntry()
     };
   }
 
+  getSleepTime() {
+    return this.data["sleepTime"];
+  }
+
+  getWakeTime() {
+    return this.data["wakeTime"];
+  }
+
   addSleepTime(sleepTime: string) {
-    this.sleepTime = sleepTime;
+    this.data["sleepTime"] = sleepTime;
+    this.hasSleepTime = true;
   }
 
   addWakeTime(wakeTime: string) {
-    this.wakeTime = wakeTime;
+    this.data["wakeTime"] = wakeTime;
+    this.hasWakeTime = true;
   }
 }

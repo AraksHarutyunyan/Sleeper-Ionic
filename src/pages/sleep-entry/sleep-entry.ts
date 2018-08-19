@@ -19,6 +19,7 @@ export class SleepEntryPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.entry = navParams.get("entry");
+
     console.log(this.entry);
   }
 

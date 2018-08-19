@@ -14,3 +14,18 @@ ion-calendar .calendar-row .select:hover {
 .row[justify-content-center] {
   background: linear-gradient(to bottom right, cornflowerblue, aqua);
 }
+
+$completeEntry: #46b592;
+$incompleteEntry: rgb(233, 163, 12);
+
+ion-calendar .calendar-row {
+  .eventBlip-complete {
+    @extend .eventBlip;
+    color: $completeEntry;
+  }
+
+  .eventBlip-incomplete {
+    @extend .eventBlip;
+    color: $incompleteEntry;
+  }
+}

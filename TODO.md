@@ -1,4 +1,4 @@
-TODO:
+## **TODO:**
 
     - Get data by year from EntryCollection
     - FIREBASE to store data (or sqlite?)
@@ -8,7 +8,7 @@ TODO:
     - Organise entries by month or by year, if more than 12 months
 
     - Add New Entry manual creation in Calendar
-    - Link Calendar DaySelect to Entry
+
 
     - Add Popup Sleep Time page at sleep time (set in settings for 8 hours "How many hours give you a good rest?")
 
@@ -20,11 +20,11 @@ TODO:
     - Create Login page
     - Create Account setup (Settings)
 
-DOING:
+    -Diff color event blips for Calendar
 
-- Create "Create New Entry" page. It makes an Entry model and stores it in EntryCollection. DO WE NEED THIS? See: Only make new entries when I missed complete days. Do I want to ask user to fill in days, or just encourage them to move on?
+## **DOING:**
 
-DONE:
+## **DONE:**
 
     - Created Stats page
     - - Created Entry-List page
@@ -44,3 +44,7 @@ DONE:
 
     - Refactored methods for EntryCollection model. Now uses a rough pipeline to return structured data.
     - EntryList now configures entries received and uses months as list-dividers
+    -
+    - Create "Create New Entry" page. It makes an Entry model and stores it in EntryCollection. DO WE NEED THIS? See: Only make new entries when I missed complete days. Do I want to ask user to fill in days, or just encourage them to move on?
+    -
+    - Link Calendar DaySelect to Entry

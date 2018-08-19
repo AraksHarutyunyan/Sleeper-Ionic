@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Calendar } from "@ionic-native/calendar";
 import { EntryCollectionProvider } from "../../providers/entry-collection/entry-collection";
 import { SleepEntryPage } from "../sleep-entry/sleep-entry";
+
 /**
  * Generated class for the CalendarPage page.
  *
@@ -21,7 +22,6 @@ export class CalendarPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private calendar: Calendar,
     private entryCollection: EntryCollectionProvider
   ) {
     for (let entry of this.entryCollection.getEntriesByMonth(
@@ -37,22 +37,21 @@ export class CalendarPage {
     if (event["hasEvent"]) this.openEntry(event);
   }
 
-  onMonthSelect(event: any) {
+  onMonthSelect(event: Object) {
     console.log(event);
-    // Clear array
-    this.entriesLogged.length = 0;
+
+    if (this.entriesLogged.length > 365) {
+      // Clear array
+      this.entriesLogged.length = 0;
+    }
 
     let entriesByMonth = this.entryCollection.getEntriesByMonth(
       event["month"],
       event["year"]
     );
-
     for (let entry of entriesByMonth) {
       this.entriesLogged.push(entry.getDateObject());
     }
-  }
-  openCalendar() {
-    console.log(typeof this.calendar === "undefined");
   }
 
   openEntry(dateObj: Object) {
