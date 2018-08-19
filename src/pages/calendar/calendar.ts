@@ -32,9 +32,10 @@ export class CalendarPage {
     }
   }
 
-  onDaySelect(event: any) {
+  onDaySelect(event: Object) {
     console.log(event);
-  //Check if event}
+    if (event["hasEvent"]) this.openEntry(event);
+  }
 
   onMonthSelect(event: any) {
     console.log(event);

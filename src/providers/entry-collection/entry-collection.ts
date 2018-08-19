@@ -31,36 +31,8 @@ export class EntryCollectionProvider {
   private mostRecentEntries: Array<SleepEntryModel> = [];
 
   addEntry(entry: SleepEntryModel) {
-    this.allEntries.set(entry.getDate(), entry);
+    this.allEntries.set(entry.getDate().getTime(), entry);
     this.update(entry);
-  }
-
-  update(entry: SleepEntryModel) {
-    // Check we keep this at a limited amount of entries
-    if (this.mostRecentEntries.length > MAX_RECENT_ENTRIES) {
-      this.mostRecentEntries.shift();
-    }
-    this.mostRecentEntries.push(entry);
-
-    let date: Date = entry.getDate();
-    // Populate map with month keys and add all relating entires for that month
-
-    let thisMonth: number = new Date(
-      date.getFullYear(),
-      date.getMonth()
-    ).getTime();
-    if (this.entriesByMonth.has(thisMonth)) {
-      this.entriesByMonth.get(thisMonth).push(entry);
-    } else {
-      this.entriesByMonth.set(thisMonth, []);
-    }
-    // Populate map with year keys and add all relating entires for that year
-    let thisYear: number = new Date(date.getFullYear()).getTime();
-    if (this.entriesByYear.has(thisYear)) {
-      this.entriesByYear.get(thisYear).push(entry);
-    } else {
-      this.entriesByYear.set(thisYear, []);
-    }
   }
 
   getEntry(year: number, month: number, date: number) {
@@ -116,10 +88,37 @@ export class EntryCollectionProvider {
     return this.entriesByYear.get(new Date(year).getTime()) || [];
   }
 
+  update(entry: SleepEntryModel) {
+    // Check we keep this at a limited amount of entries
+    if (this.mostRecentEntries.length > MAX_RECENT_ENTRIES) {
+      this.mostRecentEntries.shift();
+    }
+    this.mostRecentEntries.push(entry);
+
+    let date: Date = entry.getDate();
+
+    // Populate map with month keys and add all relating entires for that month
+    let thisMonth: number = new Date(
+      date.getFullYear(),
+      date.getMonth()
+    ).getTime();
+    if (this.entriesByMonth.has(thisMonth)) {
+      this.entriesByMonth.get(thisMonth).push(entry);
+    } else {
+      this.entriesByMonth.set(thisMonth, []);
+    }
+    // Populate map with year keys and add all relating entires for that year
+    let thisYear: number = new Date(date.getFullYear()).getTime();
+    if (this.entriesByYear.has(thisYear)) {
+      this.entriesByYear.get(thisYear).push(entry);
+    } else {
+      this.entriesByYear.set(thisYear, []);
+    }
+  }
+
   renameKeys(obj, newKeys) {
     const keyValues = Object.keys(obj).map(key => {
       const newKey = newKeys[key] || key;
-      // console.log(newKey);
       return { [newKey]: obj[key] };
     });
     return Object.assign({}, ...keyValues);
