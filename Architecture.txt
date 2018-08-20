@@ -9,8 +9,10 @@ Architecture:
 |-Stats
 |	
 |-Calendar
-	>>displaying dates where EntryModelsare linked to
+	>>displaying dates where EntryModels are linked to
 
 
 EntryCollection
-	>>allEntries: Map<Date, SleepEntryModel>
+	>>allEntries: Map<number, SleepEntryModel>
+	number is Date.getTime() because it is comparable, precise for hours/min yet granular for just month/year,
+	and can be stored with JSON. Dates cannot be stored with JSON. 

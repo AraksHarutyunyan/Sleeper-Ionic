@@ -61,10 +61,21 @@ export class EntryCollectionProvider {
     } else if (this.mostRecentEntries.length == 1) {
       return this.mostRecentEntries;
     }
+    console.log(this.mostRecentEntries);
     let copyofMostRecent = [];
     for (let entry of this.mostRecentEntries) {
+      console.log(entry);
       console.log(JSON.parse(JSON.stringify(entry)));
-      copyofMostRecent.push(JSON.parse(JSON.stringify(entry)));
+      let entryJSON: Object = JSON.parse(JSON.stringify(entry));
+      copyofMostRecent.push(
+        new SleepEntryModel(
+          new Date(
+            entryJSON["data"]["date"]["year"],
+            entryJSON["data"]["date"]["month"],
+            entryJSON["data"]["date"]["date"]
+          )
+        )
+      );
     }
 
     console.log(copyofMostRecent);

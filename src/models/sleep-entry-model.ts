@@ -1,15 +1,43 @@
 export class SleepEntryModel {
   private data: Object = {
-    date: new Date(),
-    sleepTime: "",
-    wakeTime: ""
+    date: {
+      dateObj: new Date(),
+      year: 2018,
+      month: 1,
+      date: 1
+    },
+    sleepTime: {
+      display: "",
+      hour: 0,
+      minute: 0
+    },
+    wakeTime: {
+      str: "",
+      hour: 0,
+      minute: 0
+    }
   };
 
   private hasSleepTime: boolean = false;
   private hasWakeTime: boolean = false;
 
+  constructor(obj: any);
   constructor(date: Date) {
-    this.data["date"] = date;
+    this.data["date"]["dateObj"] = date;
+    this.data["date"]["year"] = date.getFullYear();
+    this.data["date"]["month"] = date.getMonth();
+    this.data["date"]["date"] = date.getDay();
+  }
+
+  setSleepTime(hour: number, min: number) {
+    this.data["sleepTime"]["display"] = hour + "hrs " + min + "min";
+    this.data["sleepTime"]["hour"] = hour;
+    this.data["sleepTime"]["minute"] = min;
+  }
+  setWakeTime(hour: number, min: number) {
+    this.data["wakeTime"]["display"] = hour + "hrs " + min + "min";
+    this.data["wakeTime"]["hour"] = hour;
+    this.data["wakeTime"]["minute"] = min;
   }
 
   isCompleteEntry() {
@@ -18,40 +46,49 @@ export class SleepEntryModel {
 
   /* Return JS Date obj */
   getDate() {
-    return this.data["date"];
+    // Just in case while serialising/deserialising (in JSON) this date has remained a string
+    if (typeof this.data["date"]["dateObj"] === "string") {
+      return new Date(
+        this.data["date"]["year"],
+        this.data["date"]["month"],
+        this.data["date"]["date"]
+      );
+    }
+
+    return this.data["date"]["dateObj"];
   }
 
   /* Return JS Date obj's String */
   getDateString() {
-    return this.data["date"].toDateString();
+    return this.getDate().toDateString();
   }
 
   /* Return formatted custom obj with only date parameters, no time */
   getDateObject() {
     let dateObj: Date = this.data["date"];
     return {
-      year: dateObj.getFullYear(),
-      month: dateObj.getMonth(),
-      date: dateObj.getDate(),
+      year: this.data["date"]["year"],
+      month: this.data["date"]["month"],
+      date: this.data["date"]["date"],
       isComplete: this.isCompleteEntry()
     };
   }
 
-  getSleepTime() {
-    return this.data["sleepTime"];
+  getSleepTimeDisplay() {
+    return this.data["sleepTime"]["display"];
   }
 
-  getWakeTime() {
-    return this.data["wakeTime"];
+  getWakeTimeDisplay() {
+    return this.data["wakeTime"]["display"];
   }
 
-  addSleepTime(sleepTime: string) {
-    this.data["sleepTime"] = sleepTime;
+  addSleepTimeDisplay(sleepdisplay: string) {
+    this.data["sleepTime"]["display"] = sleepdisplay;
     this.hasSleepTime = true;
   }
 
-  addWakeTime(wakeTime: string) {
-    this.data["wakeTime"] = wakeTime;
+  addWakeTimeDisplay(wakedisplay: string) {
+    this.data["wakeTime"]["display"] = wakedisplay;
     this.hasWakeTime = true;
   }
 }
