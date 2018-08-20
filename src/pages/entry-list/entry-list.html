@@ -21,7 +21,7 @@
       <ion-item-divider color="light">
         <b>{{ month }}</b>
       </ion-item-divider>
-      <button ion-item icon-start block color="dark" *ngFor="let entry of sleepentries[month]; let i = index" (click)="openEntry(month, i)">
+      <button ion-item icon-start block color="dark" *ngFor="let entry of sleepentries[month] ; let i = index" (click)="openEntry(month, i)">
         <ion-icon name="alarm"></ion-icon>
         {{ entry.getDateString() }}
       </button>

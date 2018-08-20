@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { EntryCollectionProvider } from "../../providers/entry-collection/entry-collection";
+import { SleepEntryModel } from "../../models/sleep-entry-model";
 
 /**
  * Generated class for the CreateNewEntryPage page.
@@ -16,7 +17,7 @@ import { EntryCollectionProvider } from "../../providers/entry-collection/entry-
 })
 export class CreateNewEntryPage {
   public today: string = "";
-  public myDate: any = "";
+  public newDate: any = "";
 
   EntryDetails: any = "";
 
@@ -28,8 +29,29 @@ export class CreateNewEntryPage {
     this.updateMaxSelectDate();
   }
 
-  printDate(date: any) {
-    console.log(this.EntryDetails);
+  createNewEntry() {
+    if (this.newDate == "") return;
+
+    let modelDate = new Date(this.newDate);
+    if (
+      this.entryCollection.entryExists(
+        modelDate.getFullYear(),
+        modelDate.getMonth(),
+        modelDate.getDate()
+      )
+    )
+      return;
+    let newModel: SleepEntryModel = new SleepEntryModel(
+      new Date(
+        modelDate.getFullYear(),
+        modelDate.getMonth(),
+        modelDate.getDate()
+      )
+    );
+    newModel.addSleepTime(
+      "" + modelDate.getHours() + "hrs " + modelDate.getMinutes() + "min"
+    );
+    this.entryCollection.addEntry(newModel);
   }
 
   updateMaxSelectDate() {

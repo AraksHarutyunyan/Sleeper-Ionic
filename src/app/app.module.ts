@@ -47,7 +47,8 @@ import { EntryCollectionProvider } from "../providers/entry-collection/entry-col
     ChartsModule,
     CalendarModule,
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
