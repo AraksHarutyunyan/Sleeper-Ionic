@@ -27,32 +27,10 @@ export class EntryListPage {
     public navParams: NavParams,
     public entryCollection: EntryCollectionProvider
   ) {
-    let sample_entries = [
-      // new SleepEntryModel(new Date(2018, 7, 7)),
-      // new SleepEntryModel(new Date(2018, 7, 8)),
-      // new SleepEntryModel(new Date(2018, 7, 9)),
-      // new SleepEntryModel(new Date(2018, 7, 10)),
-      // new SleepEntryModel(new Date(2018, 7, 11)),
-      // new SleepEntryModel(new Date(2018, 7, 7)),
-      // new SleepEntryModel(new Date(2018, 8, 8)),
-      // new SleepEntryModel(new Date(2018, 8, 9)),
-      // new SleepEntryModel(new Date(2018, 11, 10)),
-      // new SleepEntryModel(new Date(2018, 11, 11)),
-      // new SleepEntryModel(new Date(2019, 1, 14)),
-      // new SleepEntryModel(new Date(2019, 6, 6)),
-      // new SleepEntryModel(new Date(2019, 7, 7))
-    ];
-
-    // for (let entry of sample_entries) {
-    //   this.entryCollection.addEntry(entry);
-    // }
     this.collectEntriesToShow();
   }
 
   collectEntriesToShow() {
-    // if (!this.entryCollection.hasChanged(Object.keys(this.sleepentries).length))
-    //   return;
-    // if (Object.keys(this.sleepentries).length !== 0) return;
     // get back Object of misc entry collection data.
     this.sleepentries = this.entryCollection.getMostRecentEntries();
 
@@ -60,15 +38,34 @@ export class EntryListPage {
     let monthObj = this.entryCollection.getMonthsSpanned(this.sleepentries);
     this.monthsSpanned = monthObj["Month"];
 
-    // rename monthindex-as-string keys in our object into month names
-    if (Object.keys(this.sleepentries).length === 1) {
+    // Cleanup this returned object for future cleaner indexing
+    if (
+      Object.keys(this.sleepentries).length === 1 &&
+      this.sleepentries[Object.keys(this.sleepentries)[0]].length < 2
+    ) {
       this.sleepentries[this.monthsSpanned[0]] = [this.sleepentries["0"]];
       delete this.sleepentries["0"]; // delete the original '0' key that remains ONLY for single entries
+
+      // If more than one entry was found
     } else {
       // Create copy of sleepentries
       let seCopy = {};
-      for (let key in Object.keys(this.sleepentries)) {
-        seCopy[key] = JSON.parse(JSON.stringify(this.sleepentries[key]));
+
+      // For each month in this sleepentries
+      for (let month in this.sleepentries) {
+        // If the month exists and/or is defined
+        if (this.sleepentries.hasOwnProperty(month) && month !== undefined) {
+          let monthEntries = this.sleepentries[month];
+
+          // Iterates over the SleepModels (for each loop)
+          for (let entry of monthEntries) {
+            // Make sure this month is mapped to an array
+            seCopy[month] = seCopy[month] || [];
+
+            // Recreate this Model
+            seCopy[month].push(entry.deepCopy());
+          }
+        }
       }
 
       // Update sleep entries to replace monthIndex(number) keys with the month names
@@ -76,11 +73,6 @@ export class EntryListPage {
         seCopy,
         this.entryCollection.getMonthNames()
       );
-    }
-    console.log(this.sleepentries);
-
-    for (let month of this.monthsSpanned) {
-      console.log(this.sleepentries[month]);
     }
   }
 

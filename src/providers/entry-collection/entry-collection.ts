@@ -56,41 +56,34 @@ export class EntryCollectionProvider {
   }
 
   getMostRecentEntries() {
+    console.log(this.mostRecentEntries);
     if (this.mostRecentEntries.length == 0) {
       return [];
-    } else if (this.mostRecentEntries.length == 1) {
-      return this.mostRecentEntries;
     }
-    console.log(this.mostRecentEntries);
+
     let copyofMostRecent = [];
     for (let entry of this.mostRecentEntries) {
-      console.log(entry);
-      console.log(JSON.parse(JSON.stringify(entry)));
-      let entryJSON: Object = JSON.parse(JSON.stringify(entry));
-      copyofMostRecent.push(
-        new SleepEntryModel(
-          new Date(
-            entryJSON["data"]["date"]["year"],
-            entryJSON["data"]["date"]["month"],
-            entryJSON["data"]["date"]["date"]
-          )
-        )
-      );
+      copyofMostRecent.push(entry.deepCopy());
     }
 
+    // If only one entry to give
+    if (this.mostRecentEntries.length == 1) {
+      return copyofMostRecent; //LOL huge bug because i was passing references screw js
+    }
     console.log(copyofMostRecent);
     copyofMostRecent.sort(function(a: SleepEntryModel, b: SleepEntryModel) {
-      return +b.getDate().getTime() - +a.getDate().getTime();
+      return +a.getDate().getTime() - +b.getDate().getTime();
     });
-
-    copyofMostRecent.reduce(function(acc, item) {
+    console.log(copyofMostRecent);
+    copyofMostRecent = copyofMostRecent.reduce(function(acc, item) {
       let key = item.getDate().getMonth();
       acc[key] = acc[key] || [];
       acc[key].push(item);
       return acc;
-    });
+    }, []);
 
-    return copyofMostRecent[0];
+    console.log(copyofMostRecent);
+    return copyofMostRecent; //[0]
   }
 
   getMonthNames() {
@@ -98,11 +91,27 @@ export class EntryCollectionProvider {
   }
 
   getMonthsSpanned(entries) {
+    // If only one entry, make sure we skip any unfilled date indices
     if (Object.keys(entries).length === 1) {
-      return {
-        Month: [this.getMonthNames()[entries["0"].getDate().getMonth()]],
-        index: entries["0"].getDate().getMonth()
-      };
+      if (entries.length === 1) {
+        return {
+          Month: [this.getMonthNames()[entries[0].getDate().getMonth()]],
+          index: entries[0].getDate().getMonth()
+        };
+      } else {
+        for (let key in entries) {
+          if (entries.hasOwnProperty(key) && key !== undefined) {
+            // entries[key] is an array of SleepModels assigned to that month index (as represented by key)
+            // We just need that month name, so return the first item (guaranteed to exist)
+            return {
+              Month: [
+                this.getMonthNames()[entries[key][0].getDate().getMonth()]
+              ],
+              index: entries[key][0].getDate().getMonth()
+            };
+          }
+        }
+      }
     }
     // Check if key is a number (maybe check if it's 0-11?")
     let monthsSpanned = Object.keys(entries).filter(key => {

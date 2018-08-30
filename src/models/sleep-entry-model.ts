@@ -21,20 +21,19 @@ export class SleepEntryModel {
   private hasSleepTime: boolean = false;
   private hasWakeTime: boolean = false;
 
-  constructor(obj: any);
   constructor(date: Date) {
     this.data["date"]["dateObj"] = date;
     this.data["date"]["year"] = date.getFullYear();
     this.data["date"]["month"] = date.getMonth();
-    this.data["date"]["date"] = date.getDay();
+    this.data["date"]["date"] = date.getDate();
   }
 
-  setSleepTime(hour: number, min: number) {
+  addSleepTime(hour: number, min: number) {
     this.data["sleepTime"]["display"] = hour + "hrs " + min + "min";
     this.data["sleepTime"]["hour"] = hour;
     this.data["sleepTime"]["minute"] = min;
   }
-  setWakeTime(hour: number, min: number) {
+  addWakeTime(hour: number, min: number) {
     this.data["wakeTime"]["display"] = hour + "hrs " + min + "min";
     this.data["wakeTime"]["hour"] = hour;
     this.data["wakeTime"]["minute"] = min;
@@ -48,7 +47,7 @@ export class SleepEntryModel {
   getDate() {
     // Just in case while serialising/deserialising (in JSON) this date has remained a string
     if (typeof this.data["date"]["dateObj"] === "string") {
-      return new Date(
+      this.data["date"]["dateObj"] = new Date(
         this.data["date"]["year"],
         this.data["date"]["month"],
         this.data["date"]["date"]
@@ -90,5 +89,15 @@ export class SleepEntryModel {
   addWakeTimeDisplay(wakedisplay: string) {
     this.data["wakeTime"]["display"] = wakedisplay;
     this.hasWakeTime = true;
+  }
+
+  deepCopy() {
+    return new SleepEntryModel(
+      new Date(
+        this.data["date"]["year"],
+        this.data["date"]["month"],
+        this.data["date"]["date"]
+      )
+    );
   }
 }

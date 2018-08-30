@@ -48,9 +48,7 @@ export class CreateNewEntryPage {
         modelDate.getDate()
       )
     );
-    newModel.addSleepTimeDisplay(
-      "" + modelDate.getHours() + "hrs " + modelDate.getMinutes() + "min"
-    );
+    newModel.addSleepTime(modelDate.getHours(), modelDate.getMinutes());
     this.entryCollection.addEntry(newModel);
   }
 
