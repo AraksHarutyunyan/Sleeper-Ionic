@@ -73,12 +73,6 @@ export class CalendarPage {
   }
 
   ionViewDidLoad() {
-    // console.log(
-    //   this.entryCollection.getEntriesByMonth(
-    //     new Date().getMonth(),
-    //     new Date().getFullYear()
-    //   )
-    // );
     for (let entry of this.entryCollection.getEntriesByMonth(
       new Date().getMonth(),
       new Date().getFullYear()
@@ -91,13 +85,19 @@ export class CalendarPage {
   }
 
   ionViewDidEnter() {
-    for (let entry of this.entryCollection.getEntriesByMonth(
+    let entries = this.entryCollection.getEntriesByMonth(
       this.monthNum,
       this.yearNum
-    )) {
-      console.log(entry);
-      this.entriesLogged.push(entry);
+    );
+    for (let event of this.entriesLogged) {
+      for (let entry of entries) {
+        if (event.getDate().getTime() === entry.getDate().getTime()) {
+          break;
+        }
+        this.entriesLogged.push(entry);
+      }
     }
+    console.log(this.entriesLogged);
     //   let entriesByMonth: SleepEntryModel[] = this.entryCollection.getEntriesByMonth(
     //     event["month"],
     //     event["year"]
@@ -106,7 +106,6 @@ export class CalendarPage {
     //     this.entriesLogged.push(entry.getDateObject());
     //   }
     // }
-    console.log(this.entriesLogged);
   }
 
   clearDatabase() {

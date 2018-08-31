@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { SleepEntryModel } from "../../models/sleep-entry-model";
 import { getLocaleMonthNames } from "../../../node_modules/@angular/common";
 import { Storage } from "@ionic/storage";
+import { dateDataSortValue } from "../../../node_modules/ionic-angular/umd/util/datetime-util";
 
 var monthNames = [
   "January",
@@ -38,8 +39,13 @@ export class EntryCollectionProvider {
   private mostRecentEntries: Array<SleepEntryModel> = [];
 
   addEntry(entry: SleepEntryModel) {
-    this.allEntries.set(entry.getDate().getTime(), entry);
-    this.update(entry);
+    let date = entry.getDate();
+    if (
+      !this.entryExists(date.getFullYear(), date.getMonth(), date.getDate())
+    ) {
+      this.allEntries.set(entry.getDate().getTime(), entry);
+      this.update(entry);
+    }
   }
 
   hasChanged(len: number) {
@@ -56,7 +62,6 @@ export class EntryCollectionProvider {
   }
 
   getMostRecentEntries() {
-    console.log(this.mostRecentEntries);
     if (this.mostRecentEntries.length == 0) {
       return [];
     }
@@ -70,11 +75,11 @@ export class EntryCollectionProvider {
     if (this.mostRecentEntries.length == 1) {
       return copyofMostRecent; //LOL huge bug because i was passing references screw js
     }
-    console.log(copyofMostRecent);
+
     copyofMostRecent.sort(function(a: SleepEntryModel, b: SleepEntryModel) {
       return +a.getDate().getTime() - +b.getDate().getTime();
     });
-    console.log(copyofMostRecent);
+
     copyofMostRecent = copyofMostRecent.reduce(function(acc, item) {
       let key = item.getDate().getMonth();
       acc[key] = acc[key] || [];
@@ -82,7 +87,6 @@ export class EntryCollectionProvider {
       return acc;
     }, []);
 
-    console.log(copyofMostRecent);
     return copyofMostRecent; //[0]
   }
 
@@ -238,10 +242,16 @@ export class EntryCollectionProvider {
   }
 
   storeEntry(entry: SleepEntryModel) {
+    let entryJSON = JSON.stringify(entry);
     this.storage.get(OBJS).then(series => {
       if (series) {
+        console.log(series);
+        if (series.length === 0) {
+          this.storage.set(OBJS, JSON.stringify([entryJSON]));
+          return;
+        }
         let modelArray: Array<string> = JSON.parse(series);
-        modelArray.push(JSON.stringify(entry));
+        modelArray.push();
         this.storage.set(OBJS, JSON.stringify(modelArray));
       }
     });
@@ -250,13 +260,23 @@ export class EntryCollectionProvider {
   restoreEntries() {
     this.storage.get(OBJS).then(series => {
       if (series) {
+        if (series.length === 0) return;
         let modelArray: Array<string> = JSON.parse(series);
-        for (let entryJSON in modelArray) {
-          console.log(JSON.parse(entryJSON));
-          this.addEntry(JSON.parse(entryJSON));
+        for (let entryJSON of modelArray) {
+          this.addEntry(this.createModelFromData(JSON.parse(entryJSON)));
         }
       }
     });
+  }
+
+  createModelFromData(entryJSON) {
+    return new SleepEntryModel(
+      new Date(
+        entryJSON["data"]["date"]["year"],
+        entryJSON["data"]["date"]["month"],
+        entryJSON["data"]["date"]["date"]
+      )
+    );
   }
 
   constructor(public http: HttpClient, public storage: Storage) {

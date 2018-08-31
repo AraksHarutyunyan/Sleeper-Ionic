@@ -5,6 +5,7 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 
 import { HomePage } from "../pages/home/home";
 import { TabsPage } from "../pages/tabs/tabs";
+import { EntryCollectionProvider } from "../providers/entry-collection/entry-collection";
 
 @Component({
   templateUrl: "app.html"
@@ -15,11 +16,13 @@ export class MyApp {
   constructor(
     platform: Platform,
     statusBar: StatusBar,
-    splashScreen: SplashScreen
+    splashScreen: SplashScreen,
+    entryCollection: EntryCollectionProvider
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      entryCollection.restoreEntries();
       statusBar.styleDefault();
       splashScreen.hide();
     });

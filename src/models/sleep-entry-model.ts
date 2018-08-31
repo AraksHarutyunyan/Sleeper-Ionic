@@ -100,4 +100,8 @@ export class SleepEntryModel {
       )
     );
   }
+
+  getCopyData() {
+    return this.data;
+  }
 }
