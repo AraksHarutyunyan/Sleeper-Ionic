@@ -32,6 +32,7 @@ export class SleepEntryModel {
     this.data["sleepTime"]["display"] = hour + "hrs " + min + "min";
     this.data["sleepTime"]["hour"] = hour;
     this.data["sleepTime"]["minute"] = min;
+    console.log(this.data["sleepTime"]["display"]);
   }
   addWakeTime(hour: number, min: number) {
     this.data["wakeTime"]["display"] = hour + "hrs " + min + "min";
@@ -74,6 +75,9 @@ export class SleepEntryModel {
   }
 
   getSleepTimeDisplay() {
+    // if (this.data["sleepTime"]["display"] === "") {
+    //   this.data["sleepTime"]["display"] =
+    // }
     return this.data["sleepTime"]["display"];
   }
 

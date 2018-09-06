@@ -17,11 +17,12 @@
   <ion-card>
     <ion-card-content>
       <ion-row no-padding>
-        <ion-col ng-if="entry.getSleepTime() != &quot;">
-          Sleep: {{ entry.getSleepTime() }}
+        <ion-col>
+          <!-- ng-if="entry.getSleepTime() != &quot;" -->
+          Sleep: {{ entry.getSleepTimeDisplay() }}
         </ion-col>
         <ion-col>
-          Wake: {{ entry.getWakeTime() }}
+          Wake: {{ entry.getWakeTimeDisplay() }}
         </ion-col>
       </ion-row>
     </ion-card-content>

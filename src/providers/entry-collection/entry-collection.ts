@@ -163,11 +163,13 @@ export class EntryCollectionProvider {
       date.getFullYear(),
       date.getMonth()
     ).getTime();
+    console.log("Pushing to: " + new Date(date.getFullYear(), date.getMonth()));
     if (this.entriesByMonth.has(thisMonth)) {
       this.entriesByMonth.get(thisMonth).push(entry);
     } else {
       this.entriesByMonth.set(thisMonth, []);
     }
+    console.log(this.entriesByMonth.get(thisMonth).push(entry));
     // Populate map with year keys and add all relating entires for that year
     let thisYear: number = new Date(date.getFullYear()).getTime();
     if (this.entriesByYear.has(thisYear)) {

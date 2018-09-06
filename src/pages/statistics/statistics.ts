@@ -14,7 +14,8 @@ import { Chart } from "chart.js";
   templateUrl: "statistics.html"
 })
 export class StatisticsPage {
-  @ViewChild("lineCanvas") lineCanvas;
+  @ViewChild("lineCanvas")
+  lineCanvas;
 
   lineChart: any;
 
@@ -106,7 +107,7 @@ export class StatisticsPage {
         ],
         datasets: [
           {
-            label: "My First dataset",
+            label: "Statistics for this Month",
             fill: false,
             lineTension: 0.1,
             backgroundColor: "rgba(75,192,192,0.4)",

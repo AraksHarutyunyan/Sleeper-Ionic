@@ -68,7 +68,7 @@ export class CalendarPage {
         dateObj["year"],
         dateObj["month"],
         dateObj["date"]
-      )
+      ) 
     });
   }
 
@@ -78,25 +78,30 @@ export class CalendarPage {
       new Date().getFullYear()
     )) {
       console.log(entry);
-      this.entriesLogged.push(entry);
+      this.entriesLogged.push(entry.getDateObject());
     }
 
     console.log("ionViewDidLoad CalendarPage");
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     let entries = this.entryCollection.getEntriesByMonth(
       this.monthNum,
       this.yearNum
     );
+    console.log(entries);
+    let newevents = [];
     for (let event of this.entriesLogged) {
       for (let entry of entries) {
-        if (event.getDate().getTime() === entry.getDate().getTime()) {
+        console.log(entry.getDateObject());
+        let eventid = new Date(event["year"], event["month"]).getTime();
+        if (eventid === entry.getDate().getTime()) {
           break;
         }
-        this.entriesLogged.push(entry);
+        newevents.push(entry.getDateObject());
       }
     }
+    this.entriesLogged = newevents;
     console.log(this.entriesLogged);
     //   let entriesByMonth: SleepEntryModel[] = this.entryCollection.getEntriesByMonth(
     //     event["month"],
